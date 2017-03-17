@@ -36,7 +36,7 @@ class CalendarSelection():
         driver.implicitly_wait(3)
 
         # Click flights tab
-        driver.find_element_by_id("tab-flight-tab").click()
+        driver.find_element_by_id("primary-header-flight").click()
         # Click departing field
         driver.find_element_by_id("flight-departing").click()
         # Expedia website has changed the DOM after the lecture was made
@@ -47,9 +47,33 @@ class CalendarSelection():
         time.sleep(2)
 
         for date in allValidDates:
-            if date.text == "30":
-                date.click()
-                break
+            print(date.text)
+
+
+    def test3(self):
+        #my method since xpedia website is updated it have different class name now
+        baseUrl = "http://www.expedia.com"
+        driver = webdriver.Firefox()
+        driver.maximize_window()
+        driver.get(baseUrl)
+        driver.implicitly_wait(3)
+
+        # Click flights tab
+        driver.find_element_by_id("primary-header-flight").click()
+        # Click departing field
+        driver.find_element_by_id("flight-departing").click()
+        # Expedia website has changed the DOM after the lecture was made
+        # Updated new xpath
+        allValidDates = driver.find_elements(By.XPATH, "//div[@class='datepicker-cal-month'][position()=1]"
+                                                      "//button[@class='datepicker-cal-date']")
+        #allValidDates = calMonth.find_elements(By.TAG_NAME, "button")
+
+        time.sleep(2)
+
+        for date in allValidDates:
+            print(date.text)
+
 
 ff = CalendarSelection()
-ff.test2()
+#ff.test2()
+ff.test3()
